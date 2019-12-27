@@ -1,0 +1,38 @@
+.tabla td, .tabla th {
+    border-top: 1px solid #dee2e6;
+}
+
+
+.tabla {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.tabla thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+
+.tabla td, .tabla th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+@media only screen and (max-width: 641px) {
+  .tabla {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  .tabla td{
+    min-width: 100px;
+    padding: 10px;    
+  }
+}
+

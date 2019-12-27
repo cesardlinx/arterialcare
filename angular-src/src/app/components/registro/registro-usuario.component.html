@@ -1,0 +1,306 @@
+<section class="formulario">
+
+  <h3 class="linea-titulo color-secundario">Registro de {{tipoCuenta | titlecase}}:</h3>
+  <button type="button" class="boton-primario top-10 bottom-20" [routerLink]="['/registro']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>  
+  <form [formGroup]="formulario" (ngSubmit)="registrar()">
+
+    <!-- Nombre -->
+    <div class="form-group row">
+      <label for="nombre" class="col-md-2 col-form-label">*Nombre:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': formulario.get('nombre').errors && formulario.get('nombre').touched}"
+          id="nombre" placeholder="Nombre" formControlName="nombre">
+      </div>
+    </div>
+
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('nombre').invalid && formulario.get('nombre').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('nombre').errors?.required && formulario.get('nombre').touched">
+        Escriba su nombre por favor.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('nombre').errors?.minlength && formulario.get('nombre').touched">
+        Su nombre debe tener al menos 3 caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('nombre').errors?.maxlength && formulario.get('nombre').touched">
+        Ha exedido el límite de caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('nombre').errors?.pattern && formulario.get('nombre').touched">
+        Solo se permite letras. No números, espacios o caracteres especiales.
+      </div>
+    </div>
+    <!-- Apellido -->
+    <div class="form-group row">
+      <label for="apellido" class="col-md-2 col-form-label">*Apellido:</label>
+      <div class="col-md-10">
+        <input type="text"
+               class="form-control"
+               id="apellido"
+               [ngClass]="{'is-invalid': formulario.get('apellido').errors && formulario.get('apellido').touched}"
+               placeholder="Apellido"
+               formControlName="apellido">
+      </div>
+    </div>
+
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('apellido').invalid && formulario.get('apellido').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('apellido').errors?.required && formulario.get('apellido').touched">
+        Escriba su apellido por favor.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('apellido').errors?.minlength && formulario.get('apellido').touched">
+        Su nombre debe tener al menos 3 caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('apellido').errors?.maxlength && formulario.get('apellido').touched">
+        Ha exedido el límite de caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('apellido').errors?.pattern && formulario.get('apellido').touched">
+        Solo se permite letras. No números, espacios o caracteres especiales.
+      </div>
+    </div>
+    <!-- Edad -->
+    <div class="form-group row">
+      <label for="edad" class="col-md-2 col-form-label">*Edad:</label>
+      <div class="col-md-10">
+        <div class="input-group mb-3">
+          <input type="text"
+                 class="form-control"
+                 placeholder="Edad"
+                 [ngClass]="{'is-invalid': formulario.get('edad').errors && formulario.get('edad').touched}"
+                 formControlName="edad">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">años</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('edad').invalid && formulario.get('edad').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('edad').errors?.required && formulario.get('edad').touched">
+        Escriba su edad por favor.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('edad').errors?.min && formulario.get('edad').touched">
+        Debe tener al menos 18 años.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('edad').errors?.max && formulario.get('edad').touched">
+        Ha exedido el límite de edad.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('edad').errors?.pattern && formulario.get('edad').touched">
+        Solo se permite números.
+      </div>
+    </div>
+    <!-- Sexo -->
+    <fieldset class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-md-2 pt-0">*Sexo:</legend>
+        <div class="col-md-10">
+          <div class="form-check">
+            <input class="form-check-input" 
+                   type="radio"
+                   name="sexo"
+                   id="masculino"
+                   value="Masculino"
+                   formControlName="sexo">
+            <label class="form-check-label" for="masculino">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input"
+                   type="radio"
+                   name="sexo"
+                   id="femenino"
+                   value="Femenino"
+                   formControlName="sexo">
+            <label class="form-check-label" for="femenino">
+              Femenino
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('sexo').invalid && formulario.get('sexo').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('sexo').errors?.required && formulario.get('sexo').touched">
+        Elija su sexo.
+      </div>
+    </div>
+
+    <ng-container *ngIf="tipoCuenta === 'paciente'">
+      <!-- Peso -->
+      <div class="form-group row">
+        <label for="peso" class="col-md-2 col-form-label">Peso:</label>
+        <div class="col-md-10">
+          <div class="input-group mb-3">
+            <input type="text"
+                   class="form-control"
+                   [ngClass]="{'is-invalid': formulario.get('peso').errors && formulario.get('peso').touched}"
+                   placeholder="Peso"
+                   formControlName="peso">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">kg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensajes de Error -->
+      <div *ngIf="formulario.get('peso').invalid && formulario.get('peso').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formulario.get('peso').errors?.max && formulario.get('peso').touched">
+          Ha exedido el valor límite.
+        </div>
+        <div class="text-danger" *ngIf="formulario.get('peso').errors?.pattern && formulario.get('peso').touched">
+          El número escrito no tiene un formato válido de número.
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="altura" class="col-md-2 col-form-label">Altura:</label>
+        <div class="col-md-10">
+          <div class="input-group mb-3">
+            <input type="text"
+                   class="form-control"
+                   [ngClass]="{'is-invalid': formulario.get('altura').errors && formulario.get('altura').touched}"
+                   placeholder="Altura"
+                   formControlName="altura">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensajes de Error -->
+      <div *ngIf="formulario.get('altura').invalid && formulario.get('altura').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formulario.get('altura').errors?.max && formulario.get('altura').touched">
+          Ha exedido el valor límite.
+        </div>
+        <div class="text-danger" *ngIf="formulario.get('altura').errors?.pattern && formulario.get('altura').touched">
+          El número escrito no tiene un formato válido de número.
+        </div>
+      </div>
+
+
+      <!-- Doctor -->
+      <div class="form-group row">
+        <label for="doctor" class="col-md-2 col-form-label">Doctor:</label>
+        <div class="col-md-10">
+          <input *ngIf="!badge"
+                 type="text"
+                 class="form-control input-autocompletado"
+                 [ngClass]="{'is-invalid': formulario.get('doctor').errors && formulario.get('doctor').touched}"
+                 formControlName="doctor"
+                 id="doctor"
+                 placeholder="Doctor"
+                 tabindex="-1"
+                 (keyup)="listarDoctores(formulario.get('doctor').value)">
+          <!-- badge -->
+          <button *ngIf="badge" type="button" class="btn btn-primary">
+            {{badgeNombre}}
+            <span class="badge badge-light" (click)="cerrarBadge()">X</span>
+          </button>
+          <!-- autocompletado -->
+          <div class="autocompletado" *ngIf="(listaDoctores?.length !== 0) && (badge === false) ">
+            <ul>
+              <li *ngFor="let doctor of listaDoctores" #elemento (click)="autocompletar(doctor)">{{doctor.nombreCompleto}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensajes de Error -->
+      <div *ngIf="formulario.get('doctor').invalid && formulario.get('doctor').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formulario.get('doctor').errors?.doctorNoExiste && formulario.get('doctor').touched">
+          El doctor no existe.
+        </div>
+      </div>
+    </ng-container>
+    <!-- Correo -->
+    <div class="form-group row">
+      <label for="correo" class="col-md-2 col-form-label">*Correo:</label>
+      <div class="col-md-10">
+        <input type="text"
+               class="form-control"
+               id="correo"
+               [ngClass]="{'is-invalid': formulario.get('correo').errors && formulario.get('correo').touched}"
+               placeholder="Correo"
+               formControlName="correo">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('correo').invalid && formulario.get('correo').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('correo').errors?.email && formulario.get('correo').touched">
+        El correo no es válido.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('correo').errors?.usuarioExiste && formulario.get('correo').touched">
+        <ng-container *ngIf="tipoCuenta === 'paciente'">
+          El paciente ya existe.
+        </ng-container>
+        <ng-container *ngIf="tipoCuenta === 'doctor'">
+          El doctor ya existe.
+        </ng-container>
+      </div>
+    </div>
+    <!-- Contraseña -->
+    <div class="form-group row">
+      <label for="contrasena" class="col-md-2 col-form-label">*Contraseña:</label>
+      <div class="col-md-10">
+        <input type="password"
+               class="form-control"
+               [ngClass]="{'is-invalid': formulario.get('contrasena').errors && formulario.get('contrasena').touched}"
+               id="contrasena"
+               placeholder="Contraseña"
+               formControlName="contrasena">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('contrasena').invalid && formulario.get('contrasena').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('contrasena').errors?.required && formulario.get('contrasena').touched">
+        Escriba una contraseña.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('contrasena').errors?.minlength && formulario.get('contrasena').touched">
+        La contraseña debe tener mínimo 8 caractéres.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('contrasena').errors?.pattern && formulario.get('contrasena').touched">
+        La contraseña debe tener contener mayúsculas, minúsculas y dígitos.
+      </div>
+    </div>
+    <!-- Repetir Contraseña -->
+    <div class="form-group row">
+      <label for="repetir-contrasena" class="col-md-2 col-form-label">*Repetir Contraseña:</label>
+      <div class="col-md-10 top-10">
+        <input type="password"
+               class="form-control"
+               [ngClass]="{'is-invalid': formulario.get('repetirContrasena').errors && formulario.get('repetirContrasena').touched}"
+               id="repetir-contrasena"
+               placeholder="Repetir Contraseña"
+               formControlName="repetirContrasena">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('repetirContrasena').invalid && formulario.get('repetirContrasena').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('repetirContrasena').errors?.required && formulario.get('repetirContrasena').touched">
+        Escriba de nuevo la contraseña.
+      </div>
+      <div class="text-danger" *ngIf="formulario.get('repetirContrasena').errors?.noIguales && formulario.get('repetirContrasena').touched">
+        Las contraseñas deben ser iguales.
+      </div>
+    </div>
+
+    <re-captcha formControlName="recaptcha"></re-captcha>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('recaptcha').invalid && formulario.get('recaptcha').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('recaptcha').errors?.required && formulario.get('recaptcha').touched">
+        Verifique que no es un robot.
+      </div>
+    </div>
+
+    <p class="letra-pequena">Los campos con (*) son obligatorios.</p>
+
+    <button type="submit" class="boton-primario top-20" [disabled]="formulario.invalid">Registrar {{tipoCuenta | titlecase}}</button>
+
+  </form>
+
+
+</section>

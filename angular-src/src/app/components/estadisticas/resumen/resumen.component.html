@@ -1,0 +1,45 @@
+<section class="container main-container">
+  <h3 class="linea-titulo titulo animated fadeIn fast">Estadísticas</h3>
+  <button *ngIf="rol === 'doctor'" type="button" class="boton-primario bottom-20" [routerLink]="['/pacientes']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>
+  <div ngbDropdown class="d-inline-block botones">
+    <button class="btn btn-outline-primary" id="exportar" ngbDropdownToggle>Exportar estadísticas.</button>
+    <div ngbDropdownMenu aria-labelledby="exportar">
+      <button class="dropdown-item" (click)="exportarEstadisticas('pdf')">A archivo PDF</button>
+      <button class="dropdown-item" (click)="exportarEstadisticas('correo')">Al correo</button>
+    </div>
+  </div>
+  <div class="top-20">
+    <h5 class="fechas">Fechas:</h5>
+    <div class="fechas-container">
+      <label for="desde" class="fechas-label">Desde:</label>
+      <ng-datepicker [options]="desdeOptions" class="fechas" [(ngModel)]="desde">
+      </ng-datepicker>
+    </div>
+
+    <div class="fechas-container">
+      <label for="hasta" class="fechas-label">Hasta:</label>
+      <ng-datepicker [options]="hastaOptions" class="fechas" [(ngModel)]="hasta">
+      </ng-datepicker>
+    </div>
+  </div>
+
+  <app-tabla-estadisticas nombre="Presión Sistólica"
+                          diagnostico="sistolica"
+                          [datos]="datosPresionSistolica "></app-tabla-estadisticas>
+
+  <app-tabla-estadisticas nombre="Presión Diastólica"
+                          diagnostico="diastolica"
+                          [datos]="datosPresionDiastolica "></app-tabla-estadisticas>
+
+  <app-tabla-estadisticas nombre="Pulso"
+                          diagnostico="pulso"
+                          [datos]="datosPulso "></app-tabla-estadisticas>
+
+  <button type="button" class="boton-primario" (click)="exportarEstadisticas()">Exportar estadísticas a un archivo</button>
+
+
+</section>
+
+

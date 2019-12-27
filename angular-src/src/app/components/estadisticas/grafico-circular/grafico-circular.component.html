@@ -1,0 +1,68 @@
+<div>
+  <button *ngIf="rol === 'doctor'" type="button" class="btn btn-outline-primary botones" [routerLink]="['/pacientes']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>
+  <div ngbDropdown class="d-inline-block botones">
+    <button class="btn btn-outline-primary" id="variables" ngbDropdownToggle>Elija la variable medida.</button>
+    <div ngbDropdownMenu aria-labelledby="variables">
+      <button class="dropdown-item" (click)="variable = 'sistolica'">Presión Sistólica</button>
+      <button class="dropdown-item" (click)="variable = 'diastolica'">Presion Diastólica</button>
+      <button class="dropdown-item" (click)="variable = 'pulso'">Pulso</button>
+    </div>
+  </div>
+  <button *ngIf="tipoGrafico == 'doughnut'"
+          type="button"
+          class="btn btn-outline-primary botones"
+          (click)="tipoGrafico = 'pie'">Cambiar a gráfico de Pie</button>
+  <button *ngIf="tipoGrafico == 'pie'"
+          type="button"
+          class="btn btn-outline-primary botones"
+          (click)="tipoGrafico = 'doughnut'">Cambiar a gráfico de Dona</button>  
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div [ngSwitch]="variable">
+      <h2 *ngSwitchCase="'sistolica'" class="text-center">Presión Sistólica</h2>
+      <h2 *ngSwitchCase="'diastolica'" class="text-center">Presión Diastólica</h2>
+      <h2 *ngSwitchCase="'pulso'" class="text-center">Pulso</h2>      
+    </div>
+    <div style="display: block" class="top-20 bottom-20">
+      <canvas baseChart
+                  [data]="datosTotal"
+                  [labels]="etiquetas"
+                  [chartType]="tipoGrafico"></canvas>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <h4 class="text-center variable">Dia</h4>    
+    <div style="display: block" class="top-20 bottom-20">
+      <canvas baseChart
+                  [data]="datosDia"
+                  [labels]="etiquetas"
+                  [chartType]="tipoGrafico"></canvas>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h4 class="text-center variable">Tarde</h4>    
+    <div style="display: block" class="top-20 bottom-20">
+      <canvas baseChart
+                  [data]="datosTarde"
+                  [labels]="etiquetas"
+                  [chartType]="tipoGrafico"></canvas>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h4 class="text-center variable">Noche</h4>    
+    <div style="display: block" class="top-20 bottom-20">
+      <canvas baseChart
+                  [data]="datosNoche"
+                  [labels]="etiquetas"
+                  [chartType]="tipoGrafico"></canvas>
+    </div>
+  </div>  
+</div>
+
+
+

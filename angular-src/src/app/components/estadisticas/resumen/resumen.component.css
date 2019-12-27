@@ -1,0 +1,21 @@
+.variable {
+  text-decoration: underline;
+}
+
+.fechas {
+  margin-right: 80px;
+  display: inline-block;
+}
+
+.fechas-container {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 991px) {
+  .fechas {
+    display: block;
+  }
+  .fechas-label {
+    margin-top: 10px;
+  }
+}

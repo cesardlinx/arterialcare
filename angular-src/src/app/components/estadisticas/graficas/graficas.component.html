@@ -1,0 +1,40 @@
+<ngb-tabset>
+  <ngb-tab>  
+    <ng-template ngbTabTitle>
+       <b><span class="fas fa-chart-area"></span> Gráficos de Lineas/Barras</b>
+     </ng-template>
+
+    <ng-template ngbTabContent>
+
+      <app-grafico-lineas></app-grafico-lineas>
+
+    </ng-template>
+  </ngb-tab>
+  
+  <ngb-tab>
+
+    <ng-template ngbTabTitle>
+      <b><span class="fas fa-chart-pie"></span> Gráficos Circulares</b>
+    </ng-template>
+    <ng-template ngbTabContent>      
+      
+      <app-grafico-circular></app-grafico-circular>
+
+
+    </ng-template>
+  </ngb-tab>
+
+  <ngb-tab>
+  
+    <ng-template ngbTabTitle>
+      <b>Gráfico de Radar</b>
+    </ng-template>
+    <ng-template ngbTabContent>
+  
+      <app-grafico-radar></app-grafico-radar>
+  
+  
+    </ng-template>
+  </ngb-tab>
+
+</ngb-tabset>

@@ -1,0 +1,71 @@
+<section class="container main-container">
+  <h3 class="linea-titulo titulo animated fadeIn Fast">Mediciones por fecha</h3>
+  <button *ngIf="rol === 'doctor'" type="button" class="boton-primario bottom-20" [routerLink]="['/pacientes']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>
+  <div class="row">
+
+    <div class="col-md-5">
+      <p class="top-20 explicacion">Haga click sobre el día del que desee tener más detalle.</p>
+      <div class="top-20">
+        <div class="calendario-header">
+          <div class="flecha-boton" (click)="regresarMes()">
+            <span class="fas fa-angle-left flecha"></span>
+          </div>
+          <h3 class="text-center enLinea calendario-mes color-principal">{{nombreMes}} del {{anio}}</h3>
+          <div class="flecha-boton" (click)="adelantarMes()">
+            <span class="fas fa-angle-right flecha"></span>
+          </div>
+        </div>
+        <table class="text-center calendario-body animated fadeIn">
+          <thead>
+            <tr class="semana">
+              <th scope="col">D</th>
+              <th scope="col">L</th>
+              <th scope="col">M</th>
+              <th scope="col">M</th>
+              <th scope="col">J</th>
+              <th scope="col">V</th>
+              <th scope="col">S</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let semana of diasMes">
+              <td *ngFor="let dia of semana">
+                <a class="dia" [attr.data-anio]="anio" [attr.data-mes]="mes" [ngClass]="{'seleccionado': dia === hoy}" (click)="obtenerFecha($event)">{{dia}}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <!-- *ngIf="mediciones.length > 0 -->
+      <table class="tabla text-center top-20 animated fadeIn fast" *ngIf="mediciones.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Presión Sistólica</th>
+            <th scope="col">Presión Diastólica</th>
+            <th scope="col">Pulso</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let medicion of mediciones; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td [appDiagnostico]="medicion.presionSistolica" variable="sistolica"></td>
+            <td [appDiagnostico]="medicion.presionDiastolica" variable="diastolica"></td>
+            <td [appDiagnostico]="medicion.pulso" variable="pulso"></td>
+            <td>{{medicion.fecha}}</td>
+            <td>{{medicion.hora}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="mediciones.length === 0" class="top-20 explicacion text-center">No hay Mediciones.</p>
+    </div>
+
+  </div>
+</section>

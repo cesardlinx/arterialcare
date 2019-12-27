@@ -1,0 +1,24 @@
+.drop-zone {
+  border: 3px dotted lightgray;
+  opacity: 0.5;
+  color: #666;
+  text-align: center;
+  width: 700px;
+  margin: 20px auto;
+  padding: 15px 0 25px 0;
+}
+
+.file-over {
+  border: 3px dotted dodgerblue;
+}
+
+.file {
+  display: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .drop-zone {
+    width: 90%;
+  }
+}

@@ -1,0 +1,26 @@
+<app-modal-cargando titulo="Cargando mediciones"></app-modal-cargando>
+
+
+<section class="container main-container">
+  <h3 class="linea-titulo titulo animated fadeIn fast">Importación de Mediciones</h3>
+
+  <h4 class="color-principal animated fadeIn fast">Arrastra un archivo de Excel o JSON:</h4>
+  <div class="row animated fadeIn">
+    <div appDropFiles [ngClass]="{'file-over': estaSobreDropZone}"
+         (archivoSobre)="archivoSobreDropZone($event)"
+         (contenido)="archivoDropeado($event)"
+         (leyendo)="leyendo()"
+         class="drop-zone">
+      <h4>Suelta tu archivo aquí.</h4>
+      <span class="fas fa-download fa-5x"></span>
+    </div>
+  </div>
+  <h4 class="color-principal animated fadeIn fast">O</h4>
+  
+  <div class="top-20 animated fadeIn">
+    <h4 class="enLinea color-principal">Carga tu archivo:</h4>    
+    <label for="archivo" class="boton-secundario left-20"><span class="fas fa-folder-open"></span> Subir Archivo</label>
+    <input type="file" (change)="archivoSubido($event)" name="archivo" id="archivo" class="file">
+  </div>
+</section>
+

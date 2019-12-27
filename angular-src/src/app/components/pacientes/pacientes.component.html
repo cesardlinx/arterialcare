@@ -1,0 +1,34 @@
+<div class="container main-container">
+  <h3 class="linea-titulo titulo animated fadeIn fast">Pacientes</h3>
+  
+  <div class="row top-20 animated fadeIn">
+   <div *ngFor="let paciente of pacientes" class="col-md-4">
+      <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{paciente.nombre}} {{paciente.apellido}}</div>
+        <div class="card-body">
+          <p class="card-text">Correo: {{paciente.correo}}</p>
+          <p class="card-text">Sexo: {{paciente.sexo}}</p>
+          <p class="card-text">Edad: {{paciente.edad}} años</p>
+          <p *ngIf="paciente.peso" class="card-text">Peso: {{paciente.peso}} kg</p>
+          <p *ngIf="paciente.altura" class="card-text">Altura: {{paciente.altura}} cm</p>
+        </div>
+        <div class="dropdown text-right boton-opciones">
+          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Opciones
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" [routerLink]="['/estadisticas', paciente._id]">Ver estadisticas</a>
+            <a class="dropdown-item" [routerLink]="['/estadisticas', 'graficas', paciente._id]">Ver gráficas</a>
+            <a class="dropdown-item" [routerLink]="['/mediciones', paciente._id]">Ver historial</a>            
+            <a class="dropdown-item" [routerLink]="['/mediciones', 'fechas', paciente._id]">Ver mediciones por fecha</a>
+          </div>
+        </div>
+      </div>
+   </div>
+  </div> 
+  
+</div>
+
+
+

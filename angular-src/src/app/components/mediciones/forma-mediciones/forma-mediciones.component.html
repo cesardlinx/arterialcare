@@ -1,0 +1,127 @@
+
+<form [formGroup]="formulario" (ngSubmit)="recibirDatos()" class="top-20 animated fadeIn fast">
+
+  <!-- Fecha  -->
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Fecha:</label>
+    <div class="col-md-10">
+      <ng-datepicker [options]="datepickerOptions" formControlName="fecha" [ngClass]="{'is-invalid': formulario.get('fecha').errors && formulario.get('fecha').touched}">
+      </ng-datepicker>
+    </div>
+  </div>
+  
+  <!-- Mensajes de Error -->
+  <div *ngIf="formulario.get('fecha').invalid && formulario.get('fecha').touched" class="bottom-20">
+    <div class="text-danger" *ngIf="formulario.get('fecha').errors?.required && formulario.get('fecha').touched">
+      Elija una fecha.
+    </div>
+  </div>
+
+  <!-- Hora -->
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Hora:</label>
+    <div class="col-md-10">
+      <ngb-timepicker formControlName="hora" [ngClass]="{'is-invalid': formulario.get('hora').errors && formulario.get('hora').touched}"></ngb-timepicker>
+    </div>
+  </div>
+  
+  <!-- Mensajes de Error -->
+  <div *ngIf="formulario.get('hora').invalid && formulario.get('hora').touched" class="bottom-20">
+    <div class="text-danger" *ngIf="formulario.get('hora').errors?.required && formulario.get('hora').touched">
+      Elija el valor de horas y minutos.
+    </div>
+  </div>
+
+
+  <!-- Presión Sistólica -->
+  <div class="form-group row">
+    
+    <label for="presionSistolica" class="col-md-2 col-form-label">P. Sistólica:</label>
+    <div class="col-md-10">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': formulario.get('presionSistolica').errors && formulario.get('presionSistolica').touched}"
+          id="presionSistolica" placeholder="Presión Sistólica" formControlName="presionSistolica">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">mmHg</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Mensajes de Error -->
+  <div *ngIf="formulario.get('presionSistolica').invalid && formulario.get('presionSistolica').touched" class="bottom-20">
+    <div class="text-danger" *ngIf="formulario.get('presionSistolica').errors?.required && formulario.get('presionSistolica').touched">
+      Escriba el valor de presión sistólica.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('presionSistolica').errors?.max && formulario.get('presionSistolica').touched">
+      Ha exedido el valor límite.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('presionSistolica').errors?.pattern && formulario.get('presionSistolica').touched">
+      Solo se permite números.
+    </div>
+  </div>
+
+  <!-- Presión Diastólica -->
+  <div class="form-group row">
+    <label for="presionDiastolica" class="col-md-2 col-form-label">P. Diastólica:</label>
+    <div class="col-md-10">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': formulario.get('presionDiastolica').errors && formulario.get('presionDiastolica').touched}"
+          id="presionDiastolica" placeholder="Presión Diastólica" formControlName="presionDiastolica">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">mmHg</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Mensajes de Error -->
+  <div *ngIf="formulario.get('presionDiastolica').invalid && formulario.get('presionDiastolica').touched" class="bottom-20">
+    <div class="text-danger" *ngIf="formulario.get('presionDiastolica').errors?.required && formulario.get('presionDiastolica').touched">
+      Escriba el valor de presión diastólica.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('presionDiastolica').errors?.max && formulario.get('presionDiastolica').touched">
+      Ha exedido el valor límite.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('presionDiastolica').errors?.pattern && formulario.get('presionDiastolica').touched">
+      Solo se permite números.
+    </div>
+  </div>
+
+  <!-- Pulso -->
+  <div class="form-group row">
+    <label for="pulso" class="col-md-2 col-form-label">Pulso:</label>
+    <div class="col-md-10">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [ngClass]="{'is-invalid': formulario.get('pulso').errors && formulario.get('pulso').touched}"
+          id="pulso" placeholder="Pulso" formControlName="pulso">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon2">lat/min</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Mensajes de Error -->
+  <div *ngIf="formulario.get('pulso').invalid && formulario.get('pulso').touched" class="bottom-20">
+    <div class="text-danger" *ngIf="formulario.get('pulso').errors?.required && formulario.get('pulso').touched">
+      Escriba el valor del pulso.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('pulso').errors?.max && formulario.get('pulso').touched">
+      Ha exedido el valor límite.
+    </div>
+    <div class="text-danger" *ngIf="formulario.get('pulso').errors?.pattern && formulario.get('pulso').touched">
+      Solo se permite números.
+    </div>
+  </div>
+
+  
+
+ 
+
+  <button type="submit" class="boton-primario top-20" [disabled]="formulario.invalid">Almacenar medición</button>
+
+</form>

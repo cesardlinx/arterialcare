@@ -1,0 +1,54 @@
+p {
+  margin-top: 0;
+}
+
+.modal-container {
+  position: fixed;
+  background: #fff;
+  left: 50%;
+  padding: 20px;
+  border-radius: 5px;
+  width: 70%;
+  max-width: 300px;
+  z-index: 4;
+  
+  transform: translate(-50%, 120%);
+  -o-transform: translate(-50%, 120%);
+  -moz-transform: translate(-50%, 120%);
+  -ms-transform: translate(-50%, 120%);
+
+}
+
+.modal-dialogo:before {
+  content: "";
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  width: 100%;  
+  height: 100%;
+  z-index: 3;
+}
+
+.modal-off {
+  display: none;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid transparent;
+  border-top: 6px solid #10436b;  
+  margin: 0 auto;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

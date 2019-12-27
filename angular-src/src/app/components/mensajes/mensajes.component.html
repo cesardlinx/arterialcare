@@ -1,0 +1,15 @@
+<div class="fadeInOut"
+     *ngIf="activado"
+     [ngClass]="{
+       'alerta-success': tipo === 'success',
+       'alerta-danger': tipo === 'danger',
+       'flotar-mensaje': flotar
+     }">
+  <ng-container *ngIf="tipo === 'danger'">
+    <strong>!Error!</strong> {{mensaje}}
+  </ng-container>
+  <ng-container *ngIf="tipo === 'success'">
+    <strong>!Exito!</strong> {{mensaje}}
+  </ng-container>
+</div>
+

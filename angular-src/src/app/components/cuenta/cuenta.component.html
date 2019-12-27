@@ -1,0 +1,310 @@
+<div class="container main-container">
+  <div class="row">
+    <div class="col-sm-4">
+      <img [src]="sexo | foto:tipoCuenta" alt="usuario" class="img animated fadeIn">
+      <h5 class="text-center color-secundario">{{tipoCuenta | titlecase}}</h5>
+      <button *ngIf="!pantalla" type="button" class="boton-primario btn-block"(click)="pantalla = !pantalla">
+        <span class="fas fa-key"></span>        
+        Cambiar contraseña
+      </button>
+      <button *ngIf="pantalla" type="button" class="boton-primario btn-block" (click)="pantalla = !pantalla">Editar Perfil</button>      
+      <button type="button" class="btn btn-outline-danger btn-block"(click)="borrarCuenta(modal)">
+        <span class="fas fa-trash-alt"></span>
+        Borrar Cuenta
+      </button>
+    </div>
+    <div class="col-sm-8">
+      <h3 class="linea-titulo color-secundario animated fadeIn fast">{{nombre}} {{apellido}}</h3>
+
+      <ng-container [ngSwitch]="pantalla">
+        <ng-container *ngSwitchCase="false">
+          <ng-container *ngTemplateOutlet="actualizacion"></ng-container>        
+        </ng-container>
+        <ng-container *ngSwitchCase="true">
+          <ng-container *ngTemplateOutlet="contrasena"></ng-container>
+        </ng-container>
+      </ng-container>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal de eliminación -->
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title text-danger">Eliminar cuenta</h4>
+  </div>
+  <div class="modal-body">
+    <p>¿Está seguro de borrar su cuenta?</p>
+    <p>Se perderán todos los datos asociados a la misma.</p>    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="boton-primario" (click)="c('aceptar')">Aceptar</button>
+    <button type="button" class="btn btn-outline-danger" (click)="c('cancelar')">Cancelar</button>
+  </div>
+</ng-template>
+
+
+
+<!-- Pantalla para cambio de contraseña -->
+<ng-template #contrasena>
+  <form [formGroup]="formaContrasena" (ngSubmit)="actualizarContrasena()" class="animated fadeIn">
+    <!-- Contraseña -->
+    <div class="form-group row">
+      <label for="contrasena" class="col-md-2 col-form-label">Contraseña:</label>
+      <div class="col-md-10">
+        <input type="password" class="form-control" [ngClass]="{'is-invalid': formaContrasena.get('contrasena').errors && formaContrasena.get('contrasena').touched}"
+          id="contrasena" placeholder="Contraseña" formControlName="contrasena">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaContrasena.get('contrasena').invalid && formaContrasena.get('contrasena').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaContrasena.get('contrasena').errors?.required && formaContrasena.get('contrasena').touched">
+        Este campo es requerido.
+      </div>
+      <div class="text-danger" *ngIf="formaContrasena.get('contrasena').errors?.minlength && formaContrasena.get('contrasena').touched">
+        La contraseña debe tener mínimo 8 caractéres.
+      </div>
+      <div class="text-danger" *ngIf="formaContrasena.get('contrasena').errors?.pattern && formaContrasena.get('contrasena').touched">
+        La contraseña debe tener contener mayúsculas, minúsculas y dígitos.
+      </div>
+    </div>
+    <!-- Repetir Contraseña -->
+    <div class="form-group row">
+      <label for="repetir-contrasena" class="col-md-2 col-form-label">Repetir Contraseña:</label>
+      <div class="col-md-10 top-10">
+        <input type="password" class="form-control" [ngClass]="{'is-invalid': formaContrasena.get('repetirContrasena').errors && formaContrasena.get('repetirContrasena').touched}"
+          id="repetir-contrasena" placeholder="Repetir Contraseña" formControlName="repetirContrasena">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaContrasena.get('repetirContrasena').invalid && formaContrasena.get('repetirContrasena').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaContrasena.get('repetirContrasena').errors?.required && formaContrasena.get('repetirContrasena').touched">
+        Escriba de nuevo la contraseña.
+      </div>
+      <div class="text-danger" *ngIf="formaContrasena.get('repetirContrasena').errors?.noIguales && formaContrasena.get('repetirContrasena').touched">
+        Las contraseñas deben ser iguales.
+      </div>
+    </div>
+
+    <button type="submit" class="boton-primario top-20" [disabled]="formaContrasena.invalid || formaContrasena.untouched ">Guardar Cambios</button>
+    
+  </form>
+</ng-template>
+
+
+
+
+
+
+<ng-template #actualizacion>
+  <form [formGroup]="formaActualizar" (ngSubmit)="actualizarCuenta()" class="animated fadeIn">
+  
+    <!-- Nombre -->
+    <div class="form-group row">
+      <label for="nombre" class="col-md-2 col-form-label">Nombre:</label>
+      <div class="col-md-10">
+        <input type="text" [(ngModel)]="nombre" class="form-control" [ngClass]="{'is-invalid': formaActualizar.get('nombre').errors && formaActualizar.get('nombre').touched}"
+          id="nombre" placeholder="Nombre" formControlName="nombre">
+      </div>
+    </div>
+  
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaActualizar.get('nombre').invalid && formaActualizar.get('nombre').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaActualizar.get('nombre').errors?.required && formaActualizar.get('nombre').touched">
+        Escriba su nombre por favor.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('nombre').errors?.minlength && formaActualizar.get('nombre').touched">
+        Su nombre debe tener al menos 3 caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('nombre').errors?.maxlength && formaActualizar.get('nombre').touched">
+        Ha exedido el límite de caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('nombre').errors?.pattern && formaActualizar.get('nombre').touched">
+        Solo se permite letras. No números, espacios o caracteres especiales.
+      </div>
+    </div>
+    <!-- Apellido -->
+    <div class="form-group row">
+      <label for="apellido" class="col-md-2 col-form-label">Apellido:</label>
+      <div class="col-md-10">
+        <input type="text" [(ngModel)]="apellido" class="form-control" id="apellido" [ngClass]="{'is-invalid': formaActualizar.get('apellido').errors && formaActualizar.get('apellido').touched}"
+          placeholder="Apellido" formControlName="apellido">
+      </div>
+    </div>
+  
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaActualizar.get('apellido').invalid && formaActualizar.get('apellido').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaActualizar.get('apellido').errors?.required && formaActualizar.get('apellido').touched">
+        Escriba su apellido por favor.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('apellido').errors?.minlength && formaActualizar.get('apellido').touched">
+        Su nombre debe tener al menos 3 caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('apellido').errors?.maxlength && formaActualizar.get('apellido').touched">
+        Ha exedido el límite de caracteres.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('apellido').errors?.pattern && formaActualizar.get('apellido').touched">
+        Solo se permite letras. No números, espacios o caracteres especiales.
+      </div>
+    </div>
+    <!-- Edad -->
+    <div class="form-group row">
+      <label for="edad" class="col-md-2 col-form-label">Edad:</label>
+      <div class="col-md-10">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Edad" [ngClass]="{'is-invalid': formaActualizar.get('edad').errors && formaActualizar.get('edad').touched}"
+            formControlName="edad">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">años</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaActualizar.get('edad').invalid && formaActualizar.get('edad').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaActualizar.get('edad').errors?.required && formaActualizar.get('edad').touched">
+        Escriba su edad por favor.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('edad').errors?.min && formaActualizar.get('edad').touched">
+        Debe tener al menos 18 años.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('edad').errors?.max && formaActualizar.get('edad').touched">
+        Ha exedido el límite de edad.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('edad').errors?.pattern && formaActualizar.get('edad').touched">
+        Solo se permite números.
+      </div>
+    </div>
+    <!-- Sexo -->
+    <fieldset class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-md-2 pt-0">Sexo:</legend>
+        <div class="col-md-10">
+          <div class="form-check">
+            <input class="form-check-input" [(ngModel)]="sexo" type="radio" name="sexo" id="masculino" value="Masculino" formControlName="sexo">
+            <label class="form-check-label" for="masculino">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" [(ngModel)]="sexo" type="radio" name="sexo" id="femenino" value="Femenino" formControlName="sexo">
+            <label class="form-check-label" for="femenino">
+              Femenino
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaActualizar.get('sexo').invalid && formaActualizar.get('sexo').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaActualizar.get('sexo').errors?.required && formaActualizar.get('sexo').touched">
+        Elija su sexo.
+      </div>
+    </div>
+  
+    <ng-container *ngIf="tipoCuenta === 'paciente'">
+      <!-- Peso -->
+      <div class="form-group row">
+        <label for="peso" class="col-md-2 col-form-label">Peso:</label>
+        <div class="col-md-10">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': formaActualizar.get('peso').errors && formaActualizar.get('peso').touched}"
+              placeholder="Peso" formControlName="peso">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">kg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mensajes de Error -->
+      <div *ngIf="formaActualizar.get('peso').invalid && formaActualizar.get('peso').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formaActualizar.get('peso').errors?.max && formaActualizar.get('peso').touched">
+          Ha exedido el valor límite.
+        </div>
+        <div class="text-danger" *ngIf="formaActualizar.get('peso').errors?.pattern && formaActualizar.get('peso').touched">
+          El número escrito no tiene un formato válido de número.
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label for="altura" class="col-md-2 col-form-label">Altura:</label>
+        <div class="col-md-10">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [ngClass]="{'is-invalid': formaActualizar.get('altura').errors && formaActualizar.get('altura').touched}"
+              placeholder="Altura" formControlName="altura">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mensajes de Error -->
+      <div *ngIf="formaActualizar.get('altura').invalid && formaActualizar.get('altura').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formaActualizar.get('altura').errors?.max && formaActualizar.get('altura').touched">
+          Ha exedido el valor límite.
+        </div>
+        <div class="text-danger" *ngIf="formaActualizar.get('altura').errors?.pattern && formaActualizar.get('altura').touched">
+          El número escrito no tiene un formato válido de número.
+        </div>
+      </div>
+  
+  
+      <!-- Doctor -->
+      <div class="form-group row">
+        <label for="doctor" class="col-md-2 col-form-label">Doctor:</label>
+        <div class="col-md-10">
+          <input *ngIf="!badge" type="text" class="form-control input-autocompletado" [ngClass]="{'is-invalid': formaActualizar.get('doctor').errors && formaActualizar.get('doctor').touched}"
+            formControlName="doctor" id="doctor" placeholder="Doctor" tabindex="-1" (keyup)="listarDoctores(formaActualizar.get('doctor').value)">
+          <!-- badge -->
+          <button *ngIf="badge" type="button" class="btn btn-primary">
+            {{badgeNombre}}
+            <span class="badge badge-light" (click)="cerrarBadge()">X</span>
+          </button>
+          <!-- autocompletado -->
+          <div class="autocompletado" *ngIf="(listaDoctores?.length !== 0) && (badge === false) ">
+            <ul>
+              <li *ngFor="let doctor of listaDoctores" #elemento (click)="autocompletar(doctor)">{{doctor.nombreCompleto}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Mensajes de Error -->
+      <div *ngIf="formaActualizar.get('doctor').invalid && formaActualizar.get('doctor').touched" class="bottom-20">
+        <div class="text-danger" *ngIf="formaActualizar.get('doctor').errors?.doctorNoExiste && formaActualizar.get('doctor').touched">
+          El doctor no existe.
+        </div>
+      </div>
+    </ng-container>
+  
+    <!-- Correo -->
+    <div class="form-group row">
+      <label for="correo" class="col-md-2 col-form-label">Correo:</label>
+      <div class="col-md-10">
+        <input type="text" class="form-control" id="correo" [ngClass]="{'is-invalid': formaActualizar.get('correo').errors && formaActualizar.get('correo').touched}"
+          placeholder="Correo" formControlName="correo">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formaActualizar.get('correo').invalid && formaActualizar.get('correo').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formaActualizar.get('correo').errors?.email && formaActualizar.get('correo').touched">
+        El correo no es válido.
+      </div>
+      <div class="text-danger" *ngIf="formaActualizar.get('correo').errors?.usuarioExiste && formaActualizar.get('correo').touched">
+        <ng-container *ngIf="tipoCuenta === 'paciente'">
+          El paciente ya existe.
+        </ng-container>
+        <ng-container *ngIf="tipoCuenta === 'doctor'">
+          El doctor ya existe.
+        </ng-container>
+      </div>
+    </div>
+  
+    <button type="submit" class="boton-primario top-20" [disabled]="formaActualizar.invalid || formaActualizar.untouched ">Guardar Cambios</button>
+  
+  </form>
+</ng-template>

@@ -1,34 +1,35 @@
 {
   "name": "arterialcare",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Aplicación web para el monitoreo casero de la presión arterial",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node app"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cesardlinx/arterialcare.git"
+  "dependencies": {
+    "axios": "^0.17.1",
+    "bcrypt": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "express-validator": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "nodemailer": "^4.4.2",
+    "passport": "*",
+    "passport-jwt": "*",
+    "query-string": "^5.0.1"
   },
   "keywords": [
+    "presión",
     "arterial",
+    "node",
+    "mean",
+    "monitoreo",
     "blood",
-    "pressure"
+    "pressure",
+    "angular2"
   ],
-  "author": "Cesar Padilla",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/cesardlinx/arterialcare/issues"
-  },
-  "homepage": "https://github.com/cesardlinx/arterialcare#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mongoose": "^5.6.11"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.1"
-  }
+  "author": "César David Padilla Silva",
+  "license": "ISC"
 }

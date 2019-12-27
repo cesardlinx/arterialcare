@@ -1,0 +1,9 @@
+<section class="formulario">
+
+  <h3 class="linea-titulo color-secundario">Editar Medición:</h3>
+  <button type="button" class="boton-primario top-10" [routerLink]="['/mediciones']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>
+  <app-forma-mediciones [medicion]="medicion" (datosFormulario)="editarMedicion($event)"></app-forma-mediciones>
+
+</section>

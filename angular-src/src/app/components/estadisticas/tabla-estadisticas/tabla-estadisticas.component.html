@@ -1,0 +1,22 @@
+<h4 class="color-principal variable top-40">{{nombre}}</h4>
+<p class="top-20 explicacion text-center" *ngIf="datos.length === 0">No hay Datos.</p>
+<table class="tabla text-center animated fadeIn top-20" *ngIf="datos.length > 0">
+  <thead>
+    <tr>
+      <th scope="col">Hora del Día</th>
+      <th scope="col">Máximo</th>
+      <th scope="col">Promedio</th>
+      <th scope="col">Mínimo</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dato of datos; let i = index">
+      <th scope="row">{{dato._id | titlecase | tildes}}</th>
+      <td [appDiagnostico]="dato.max | number:'.2-2'" [variable]="diagnostico"></td>
+      <td [appDiagnostico]="dato.avg | number:'.2-2'" [variable]="diagnostico"></td>
+      <td [appDiagnostico]="dato.min | number:'.2-2'" [variable]="diagnostico"></td>
+      <th scope="row">{{dato.total}}</th>
+    </tr>
+  </tbody>
+</table>

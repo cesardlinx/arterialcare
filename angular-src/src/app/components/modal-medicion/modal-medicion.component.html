@@ -1,0 +1,22 @@
+<div class="modal-dialogo" [ngClass]="{'dialogo-off': turnOff}">
+  <div class="modal-container" [ngClass]="{'modal-off': turnOff}">
+    <h4 class="text-center modal-titulo">{{titulo}}</h4>
+    <div *ngIf="medicion" class=" top-20">
+      <div>
+        <h6 class="enLinea">Presión Sistólica:</h6>
+        <p [appDiagMedicion]="medicion.presionSistolica" variable="sistolica" class="enLinea"></p>
+      </div>
+      <div>
+        <h6 class="enLinea">Presión Diastólica:</h6>
+        <p [appDiagMedicion]="medicion.presionDiastolica" variable="diastolica" class="enLinea"></p>
+      </div>
+      <div>
+        <h6 class="enLinea">Pulso:</h6>
+        <p [appDiagMedicion]="medicion.pulso" variable="pulso" class="enLinea"></p>
+      </div>
+    </div> 
+    <div class="text-right">
+      <button type="button" class="btn btn-outline-light" (click)="ocultar()">Aceptar</button>
+    </div>
+  </div>
+</div>

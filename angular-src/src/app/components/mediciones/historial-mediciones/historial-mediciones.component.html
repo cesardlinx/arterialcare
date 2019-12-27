@@ -1,0 +1,58 @@
+<app-modal-cargando titulo="Cargando historial"></app-modal-cargando>
+
+<section class="container main-container">
+  <h3 class="linea-titulo titulo animated fadeIn fast">Historial de Mediciones</h3>
+  <button *ngIf="rol === 'doctor'" type="button" class="boton-primario bottom-20" [routerLink]="['/pacientes']">
+    <span class="fas fa-arrow-left"></span> Regresar
+  </button>
+  <p *ngIf="!mediciones && !cargando" class="top-20 explicacion text-center">No hay Mediciones.</p>
+  <table class="tabla text-center animated fadeIn" *ngIf="mediciones">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Presión Sistólica</th>
+        <th scope="col">Presión Diastólica</th>
+        <th scope="col">Pulso</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Hora</th>        
+        <th *ngIf="rol === 'paciente'" scope="col">Opciones</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medicion of mediciones; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td [appDiagnostico]="medicion.presionSistolica" variable="sistolica"></td>
+        <td [appDiagnostico]="medicion.presionDiastolica" variable="diastolica"></td>
+        <td [appDiagnostico]="medicion.pulso" variable="pulso"></td>
+        <td>{{medicion.fecha}}</td>
+        <td>{{medicion.hora}}</td>
+        <td *ngIf="rol === 'paciente'">
+          <button type="button" class="boton-primario" [routerLink]="['/mediciones','editar',medicion.id]">
+            <span class="fas fa-pencil-alt"></span>
+          </button>
+          <button type="button" class="btn btn-outline-danger" (click)="borrarMedicion(modal, medicion.id)">
+            <span class="fas fa-trash-alt"></span>
+          </button>
+        </td>         
+      </tr>
+    </tbody>
+  </table>
+  <button *ngIf="siguientePag" (click)="cargarMas()" type="button" class="boton-primario btn-block">Cargar más</button>
+</section>
+
+
+
+<ng-template #modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Eliminar medición</h4>
+  </div>
+  <div class="modal-body">
+    <p>¿Está seguro de borrar la medición?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="boton-primario" (click)="c('aceptar')">Aceptar</button>    
+    <button type="button" class="btn btn-outline-danger" (click)="c('cancelar')">Cancelar</button>
+  </div>
+</ng-template>
+
+

@@ -1,0 +1,11 @@
+<button *ngIf="rol === 'doctor'" type="button" class="boton-primario left-20 top-20" [routerLink]="['/pacientes']">
+        <span class="fas fa-arrow-left"></span> Regresar
+</button>
+<h2 class="text-center top-20">Porcentajes Totales</h2>
+<div *ngIf="radarDatosTotales[0].data.length !== 0 && radarDatosTotales[1].data.length !== 0 && radarDatosTotales[0].data.length !== 0" 
+     style="display: block" class="top-20 bottom-40 animated fadeIn fast">
+  <canvas baseChart
+          [datasets]="radarDatosTotales"
+          [labels]="etiquetas"
+          chartType="radar"></canvas>
+</div>

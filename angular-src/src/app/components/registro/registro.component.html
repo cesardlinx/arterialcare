@@ -1,0 +1,29 @@
+<section class="container">
+  <div class="text-center titulo-top animated fadeIn fast">
+    <h3 class="titulo">Registro de Usuarios</h3>
+    <p class="descripcion">Puedes crear una cuenta de paciente o ingresar como doctor.</p>
+  </div>
+  <div class="row text-center animated fadeIn">
+    <div class="col-md-6 bottom-20">
+      <div class="cuenta">
+        <span class="fas fa-user fa-6x"></span>
+        <h4 class="titulo">Paciente</h4>
+        <p class="descripcion">
+          Como Paciente puede llevar un historial de mediciones de su presión arterial y pulso además de poder ver sus estadísticas
+          por fechas.
+        </p>
+      </div>
+      <button type="button" class="boton-primario" [routerLink]="['/registro','paciente']">Registrarme como Paciente</button>
+    </div>
+    <div class="col-md-6 bottom-20">
+      <div class="cuenta">
+        <span class="fas fa-user-md fa-6x"></span>
+        <h4 class="titulo">Doctor</h4>
+        <p class="descripcion">
+          Como Doctor no podrá realizar mediciones, pero puede revisar el historial de mediciones y estadísticas de todos sus pacientes.
+        </p>
+      </div>
+      <button type="button" class="boton-primario" [routerLink]="['/registro','doctor']">Registrarme como Doctor</button>
+    </div>
+  </div>
+</section>

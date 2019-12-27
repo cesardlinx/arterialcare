@@ -1,0 +1,44 @@
+<section class="formulario">
+
+  <h3 class="linea-titulo color-secundario animated fadeIn">Ingreso de {{cuenta | titlecase}}:</h3>
+  <form [formGroup]="formulario" (ngSubmit)="ingreso()" class="formulario-ingreso animated fadeIn fast">
+
+    <!-- Correo -->
+    <div class="form-group row">
+      <label for="usuario" class="col-md-3 col-lg-2 col-form-label">Usuario:</label>
+      <div class="col-md-9 col-lg-10">
+        <input type="text" class="form-control" id="usuario" [ngClass]="{'is-invalid': formulario.get('usuario').errors && formulario.get('usuario').touched}"
+          placeholder="Usuario" formControlName="usuario" #primeraEntrada>
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('usuario').invalid && formulario.get('usuario').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('usuario').errors?.email && formulario.get('usuario').touched">
+        El usuario debe ser un correo válido.
+      </div>
+    </div>
+    <!-- Contraseña -->
+    <div class="form-group row">
+      <label for="contrasena" class="col-md-3 col-lg-2 col-form-label">Contraseña:</label>
+      <div class="col-md-9 col-lg-10">
+        <input type="password" class="form-control" [ngClass]="{'is-invalid': formulario.get('contrasena').errors && formulario.get('contrasena').touched}"
+          id="contrasena" placeholder="Contraseña" formControlName="contrasena">
+      </div>
+    </div>
+    <!-- Mensajes de Error -->
+    <div *ngIf="formulario.get('contrasena').invalid && formulario.get('contrasena').touched" class="bottom-20">
+      <div class="text-danger" *ngIf="formulario.get('contrasena').errors?.required && formulario.get('contrasena').touched">
+        Escriba su contraseña.
+      </div>
+    </div>
+
+    <re-captcha formControlName="recaptcha" *ngIf="intentosFallidos > 5"></re-captcha>
+
+
+
+    <button type="submit" class="boton-primario top-20" [disabled]="formulario.invalid">Ingresar</button>
+
+  </form>
+
+
+</section>
